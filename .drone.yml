@@ -6,8 +6,8 @@ pipeline:
 
   test:
     image: node:latest
-#    commands: npm run test
-    commands: exit 0
+    commands: npm run test
+#    commands: exit 0
 
   notify:
     image: plugins/slack
@@ -15,4 +15,6 @@ pipeline:
     channel: testing-bot
     username: drone
     icon_emoji: drone
+    template: >
+      build #{{ build.number }} finished with a {{ build.status }} status
 
