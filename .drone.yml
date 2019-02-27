@@ -14,3 +14,4 @@ pipeline:
     channel: dev
     username: drone
     icon_emoji: drone
+
