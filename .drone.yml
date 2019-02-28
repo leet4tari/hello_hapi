@@ -28,6 +28,8 @@ pipeline:
     channel: testing-bot
     username: drone
     icon_emoji: drone
+    when:
+      status: [ success, failure ]
     template: >
       {{#success build.status}}
         {{repo.name}} ({{build.branch}}) <{{ build.link }}|{{ repo.owner }}/{{ repo.name }}#{{truncate build.commit 8}}> build succeeded on {{uppercasefirst build.event}}. Good job {{ build.author }}.
