@@ -1,4 +1,5 @@
 ---
+
 kind: pipeline
 name: Build
 
@@ -6,7 +7,7 @@ steps:
 - name: build
   image: node:latest
   commands:
-    - npm install
+  - npm install
 
 #  - name: test
 #    image: node:latest
@@ -16,18 +17,18 @@ steps:
 - name: test-0
   image: node:latest
   commands:
-    - exit 0
+  - exit 0
 
 - name: test-1
   image: node:latest
   commands:
-    - exit 0
+  - exit 0
 
 - name: notify
   image: plugins/slack
   depends_on:
-    - test-01
-    - test-02
+  - test-01
+  - test-02
   webhook:
     from_secret: tnomatter_webhook
   channel: testing-bot
