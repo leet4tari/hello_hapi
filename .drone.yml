@@ -12,31 +12,31 @@ steps:
 #    commands:
 #      - npm run test
 
-  - name: test-0
-    image: node:latest
-    commands:
-      - exit 0
+- name: test-0
+  image: node:latest
+  commands:
+    - exit 0
 
-  - name: test-1
-    image: node:latest
-    commands:
-      - exit 0
+- name: test-1
+  image: node:latest
+  commands:
+    - exit 0
 
-  - name: notify
-    image: plugins/slack
-    depends_on:
-      - test-01
-      - test-02
-    webhook:
-      from_secret: tnomatter_webhook
-    channel: testing-bot
-    username: drone
-    icon_emoji: drone
-    when:
-      status: [ success, failure ]
-    template: >
-      {{#success build.status}}
-        {{repo.name}} ({{build.branch}}) <{{ build.link }}|{{ repo.owner }}/{{ repo.name }}#{{truncate build.commit 8}}> build succeeded on {{uppercasefirst build.event}}. Good job {{ build.author }}.
-      {{else}}
-        {{repo.name}} ({{build.branch}}) <{{ build.link }}|{{ repo.owner }}/{{ repo.name }}#{{truncate build.commit 8}}> build failed on {{uppercasefirst build.event}}. Fix me please {{ build.author }}.
-      {{/success}}
+- name: notify
+  image: plugins/slack
+  depends_on:
+    - test-01
+    - test-02
+  webhook:
+    from_secret: tnomatter_webhook
+  channel: testing-bot
+  username: drone
+  icon_emoji: drone
+  when:
+    status: [ success, failure ]
+  template: >
+    {{#success build.status}}
+      {{repo.name}} ({{build.branch}}) <{{ build.link }}|{{ repo.owner }}/{{ repo.name }}#{{truncate build.commit 8}}> build succeeded on {{uppercasefirst build.event}}. Good job {{ build.author }}.
+    {{else}}
+      {{repo.name}} ({{build.branch}}) <{{ build.link }}|{{ repo.owner }}/{{ repo.name }}#{{truncate build.commit 8}}> build failed on {{uppercasefirst build.event}}. Fix me please {{ build.author }}.
+    {{/success}}
