@@ -23,7 +23,7 @@ pipeline:
       - test-02
     settings:
       webhook:
-        from_secret: nomatter_webhook
+        from_secret: tnomatter_webhook
       channel: testing-bot
       username: drone
       icon_emoji: drone
