@@ -27,8 +27,8 @@ steps:
 - name: notify
   image: plugins/slack
   depends_on:
+  - test-00
   - test-01
-  - test-02
   webhook:
     from_secret: tnomatter_webhook
   channel: testing-bot
