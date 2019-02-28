@@ -29,11 +29,12 @@ steps:
   depends_on:
   - test-00
   - test-01
-  webhook:
-    from_secret: tnomatter_webhook
-  channel: testing-bot
-  username: drone
-  icon_emoji: drone
+  settings:
+    webhook:
+      from_secret: tnomatter_webhook
+    channel: testing-bot
+    username: drone
+    icon_emoji: drone
   when:
     status: [ success, failure ]
   template: >
