@@ -14,17 +14,15 @@ pipeline:
 
   test-1:
     image: node:latest
-    commands: exit 1
+    commands: exit 0
 
   notify:
     image: plugins/slack
     depends_on:
       - test-01
       - test-02
-#    webhook: https://nomatter.tari.com/hooks/x753g9sqyjn4mydh77jmq4ewcy
     webhook:
       from_secret: tnomatter_webhook
-#    settings:
     channel: testing-bot
     username: drone
     icon_emoji: drone
