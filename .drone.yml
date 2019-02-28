@@ -1,3 +1,4 @@
+---
 kind: pipeline
 name: Build
 
@@ -40,3 +41,5 @@ steps:
     {{else}}
       {{repo.name}} ({{build.branch}}) <{{ build.link }}|{{ repo.owner }}/{{ repo.name }}#{{truncate build.commit 8}}> build failed on {{uppercasefirst build.event}}. Fix me please {{ build.author }}.
     {{/success}}
+
+---
