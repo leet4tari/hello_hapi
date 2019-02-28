@@ -14,7 +14,7 @@ pipeline:
 
   test-1:
     image: node:latest
-    commands: exit 1
+    commands: exit 0
 
   notify:
     depends_on:
