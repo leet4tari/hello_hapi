@@ -24,13 +24,13 @@ pipeline:
 #    webhook: https://nomatter.tari.com/hooks/x753g9sqyjn4mydh77jmq4ewcy
     webhook:
       from_secret: tnomatter_webhook
-    settings:
-      channel: testing-bot
-      username: drone
-      icon_emoji: drone
-      template: >
-        {{#success build.status}}
-          {{repo.name}} ({{build.branch}}) <{{ build.link }}|{{ repo.owner }}/{{ repo.name }}#{{truncate build.commit 8}}> build succeeded on {{uppercasefirst build.event}}. Good job {{ build.author }}.
-        {{else}}
-          {{repo.name}} ({{build.branch}}) <{{ build.link }}|{{ repo.owner }}/{{ repo.name }}#{{truncate build.commit 8}}> build failed on {{uppercasefirst build.event}}. Fix me please {{ build.author }}.
-        {{/success}}
+#    settings:
+    channel: testing-bot
+    username: drone
+    icon_emoji: drone
+    template: >
+      {{#success build.status}}
+        {{repo.name}} ({{build.branch}}) <{{ build.link }}|{{ repo.owner }}/{{ repo.name }}#{{truncate build.commit 8}}> build succeeded on {{uppercasefirst build.event}}. Good job {{ build.author }}.
+      {{else}}
+        {{repo.name}} ({{build.branch}}) <{{ build.link }}|{{ repo.owner }}/{{ repo.name }}#{{truncate build.commit 8}}> build failed on {{uppercasefirst build.event}}. Fix me please {{ build.author }}.
+      {{/success}}
