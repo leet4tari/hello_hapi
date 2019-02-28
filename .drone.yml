@@ -1,15 +1,32 @@
 pipeline:
+
   build:
     image: node:latest
     commands: npm install
 
-  test:
+#  test:
+#    image: node:latest
+#    commands: npm run test
+
+  test-0:
     image: node:latest
-    commands: npm run test
+    commands: exit 0
+
+  test-1:
+    image: node:latest
+    commands: exit 1
 
   notify:
     image: plugins/slack
     webhook: https://nomatter.tari.com/hooks/x753g9sqyjn4mydh77jmq4ewcy
-    channel: dev
+    channel: testing-bot
     username: drone
     icon_emoji: drone
+    when:
+      status: [ success, failure ]
+    template: >
+      {{#success build.status}}
+        {{repo.name}} ({{build.branch}}) <{{ build.link }}|{{ repo.owner }}/{{ repo.name }}#{{truncate build.commit 8}}> build succeeded on {{uppercasefirst build.event}}. Good job {{ build.author }}.
+      {{else}}
+        {{repo.name}} ({{build.branch}}) <{{ build.link }}|{{ repo.owner }}/{{ repo.name }}#{{truncate build.commit 8}}> build failed on {{uppercasefirst build.event}}. Fix me please {{ build.author }}.
+      {{/success}}
