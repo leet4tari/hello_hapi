@@ -4,19 +4,23 @@ name: Build
 steps:
   - name: build
     image: node:latest
-    commands: npm install
+    commands:
+      - npm install
 
 #  - name: test
 #    image: node:latest
-#    commands: npm run test
+#    commands:
+#      - npm run test
 
   - name: test-0
     image: node:latest
-    commands: exit 0
+    commands:
+      - exit 0
 
   - name: test-1
     image: node:latest
-    commands: exit 0
+    commands:
+      - exit 0
 
   - name: notify
     image: plugins/slack
