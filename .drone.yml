@@ -22,7 +22,7 @@ steps:
 - name: test-01
   image: node:latest
   commands:
-  - exit 0
+  - exit 1
 
 - name: notify
   image: plugins/slack
