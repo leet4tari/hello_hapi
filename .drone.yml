@@ -1,22 +1,24 @@
-pipeline:
+kind: pipeline
+name: Build
 
-  build:
+steps:
+  - name: build
     image: node:latest
     commands: npm install
 
-#  test:
+#  - name: test
 #    image: node:latest
 #    commands: npm run test
 
-  test-0:
+  - name: test-0
     image: node:latest
     commands: exit 0
 
-  test-1:
+  - name: test-1
     image: node:latest
     commands: exit 0
 
-  notify:
+  - name: notify
     image: plugins/slack
     depends_on:
       - test-01
