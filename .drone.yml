@@ -17,6 +17,9 @@ pipeline:
     commands: exit 1
 
   notify:
+    depends_on:
+      - test-01
+      - test-02
     image: plugins/slack
     webhook: https://nomatter.tari.com/hooks/x753g9sqyjn4mydh77jmq4ewcy
     channel: testing-bot
