@@ -14,12 +14,12 @@ steps:
 #    commands:
 #      - npm run test
 
-- name: test-0
+- name: test-00
   image: node:latest
   commands:
   - exit 0
 
-- name: test-1
+- name: test-01
   image: node:latest
   commands:
   - exit 0
