@@ -16,8 +16,8 @@ steps:
 
   - name: db-ping
     image: postgres:10.4
-    depends_on:
-      - database
+#    depends_on:
+#      - database
     commands:
     # wait for postgres service to become available
       - |
