@@ -21,7 +21,7 @@ steps:
     commands:
     # wait for postgres service to become available
       - |
-        until psql -U \
+        until psql -U app \
           -c "SELECT 1;" >/dev/null 2>&1; do sleep 1; done
     # query the database
       - |
