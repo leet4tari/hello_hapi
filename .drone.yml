@@ -4,44 +4,54 @@ kind: pipeline
 name: default
 
 steps:
-- name: build
-  image: node:latest
-  commands:
-  - npm install
+  - name: build
+    image: node:latest
+    commands:
+    - npm install
 
 #  - name: test
 #    image: node:latest
 #    commands:
 #      - npm run test
 
-- name: test-00
-  image: node:latest
-  commands:
-  - exit 0
+  - name: test-00
+    image: node:latest
+    commands:
+      - exit 0
 
-- name: test-01
-  image: node:latest
-  commands:
-  - exit 1
+  - name: test-01
+    image: node:latest
+    commands:
+      - exit 1
 
-- name: notify
-  image: plugins/slack
-  depends_on:
-  - test-00
-  - test-01
-  settings:
-    webhook:
-      from_secret: tnomatter_webhook
-    channel: testing-bot
-    username: drone
-    icon_emoji: drone
-  when:
-    status: [ success, failure ]
-  template: >
-    {{#success build.status}}
-      {{repo.name}} ({{build.branch}}) <{{ build.link }}|{{ repo.owner }}/{{ repo.name }}#{{truncate build.commit 8}}> build succeeded on {{uppercasefirst build.event}}. Good job {{ build.author }}.
-    {{else}}
-      {{repo.name}} ({{build.branch}}) <{{ build.link }}|{{ repo.owner }}/{{ repo.name }}#{{truncate build.commit 8}}> build failed on {{uppercasefirst build.event}}. Fix me please {{ build.author }}.
-    {{/success}}
+  - name: notify
+    image: plugins/slack
+    depends_on:
+      - test-00
+      - test-01
+    settings:
+      webhook:
+        from_secret: tnomatter_webhook
+      channel: testing-bot
+      username: drone
+      icon_emoji: drone
+    when:
+      status: [ success, failure ]
+    template: >
+      {{#success build.status}}
+        {{repo.name}} ({{build.branch}}) <{{ build.link }}|{{ repo.owner }}/{{ repo.name }}#{{truncate build.commit 8}}> build succeeded on {{uppercasefirst build.event}}. Good job {{ build.author }}.
+      {{else}}
+        {{repo.name}} ({{build.branch}}) <{{ build.link }}|{{ repo.owner }}/{{ repo.name }}#{{truncate build.commit 8}}> build failed on {{uppercasefirst build.event}}. Fix me please {{ build.author }}.
+      {{/success}}
+
+services:
+  - name: database
+    image: postgres:10.4
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: password
+#    when:
+#      event: [pull_request, push]
+#      branch: master
 
 ---
