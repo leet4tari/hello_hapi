@@ -14,6 +14,24 @@ steps:
 #    commands:
 #      - npm run test
 
+  - name: db-ping
+    image: postgres:10.4
+    depends_on:
+      - database
+    commands:
+    # wait for postgres service to become available
+      - |
+        until psql -U \
+          -c "SELECT 1;" >/dev/null 2>&1; do sleep 1; done
+    # query the database
+      - |
+        psql -U app \
+          -c "SELECT * FROM pg_catalog.pg_tables;"
+    # max connections
+      - |
+        psql -U app \
+          -c "show max_connections;"
+
   - name: test-00
     image: node:latest
     commands:
