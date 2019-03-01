@@ -70,7 +70,7 @@ services:
     image: postgres:10.4
     environment:
       POSTGRES_USER: app
-      POSTGRES_PASSWORD: password
+#      POSTGRES_PASSWORD: password
 #    when:
 #      event: [pull_request, push]
 #      branch: master
