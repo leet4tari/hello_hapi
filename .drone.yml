@@ -18,18 +18,21 @@ steps:
     image: postgres:10.4
 #    depends_on:
 #      - database
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: password
     commands:
     # wait for postgres service to become available
       - |
-        until psql -U app \
+        until psql -U app -d app -h database \
           -c "SELECT 1;" >/dev/null 2>&1; do sleep 1; done
     # query the database
       - |
-        psql -U app \
+        psql -U app -d app -h database  \
           -c "SELECT * FROM pg_catalog.pg_tables;"
     # max connections
       - |
-        psql -U app \
+        psql -U app -d app -h database  \
           -c "show max_connections;"
 
   - name: test-00
